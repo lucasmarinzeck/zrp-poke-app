@@ -1,20 +1,33 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
 import { Abilities, Result } from './entities/abilities';
 import { Ability } from './entities/ability';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class PokemonsService {
   private readonly url = 'https://pokeapi.co/api/v2';
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
   async findAbility(id: string) {
+    const abilityId = `ability_${id}`;
+    const cachedAbility = await this.cacheManager.get<Ability>(abilityId);
+
+    if (cachedAbility) {
+      return cachedAbility;
+    }
+
     const { data } = await lastValueFrom(
       this.httpService.get<Ability>(`${this.url}/ability/${id}`),
     );
 
+    await this.cacheManager.set(abilityId, data);
     return this.parseAbility(data);
   }
 
@@ -39,14 +52,25 @@ export class PokemonsService {
   }
 
   async findAllAbilities(limit: number, offset: number) {
+    const cachedAbilities = await this.cacheManager.get<Abilities>('ABILITIES');
+    console.log({ cachedAbilities });
+
+    if (cachedAbilities) {
+      return cachedAbilities;
+    }
+
     const { data } = await lastValueFrom(
       this.httpService.get<Abilities>(`${this.url}/ability/?limit=367`),
     );
 
-    return data.results
+    const result = data.results
       .sort((a, b) => this.sortAlphabetically(a.name, b.name))
       .map((abilityEntry) => this.parseAbilities(abilityEntry))
       .slice(offset, offset + limit);
+
+    await this.cacheManager.set('ABILITIES', result);
+
+    return result;
   }
 
   parseAbilities(data: Result) {
