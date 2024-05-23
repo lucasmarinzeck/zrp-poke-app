@@ -53,7 +53,6 @@ export class PokemonsService {
 
   async findAllAbilities(limit: number, offset: number) {
     const cachedAbilities = await this.cacheManager.get<Abilities>('ABILITIES');
-    console.log({ cachedAbilities });
 
     if (cachedAbilities) {
       return cachedAbilities;
