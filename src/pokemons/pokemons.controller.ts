@@ -34,7 +34,7 @@ export class PokemonsController {
 
   @Get('/api/abilities')
   async findAllAbilities(@Query() query: FindAllAbilitiesQueryDto) {
-    const limit = query.limit ? parseInt(query.limit, 10) : 60;
+    const limit = query.limit ? parseInt(query.limit, 10) : 367;
     const offset = query.offset ? parseInt(query.offset, 10) : 0;
 
     return await this.pokemonsService.findAllAbilities(limit, offset);
