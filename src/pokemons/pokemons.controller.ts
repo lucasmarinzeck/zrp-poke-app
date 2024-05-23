@@ -44,9 +44,4 @@ export class PokemonsController {
   async getAbility(@Param('id') id: string) {
     return this.pokemonsService.findAbility(id);
   }
-
-  @Get('/api/:name')
-  async findOne(@Param('name') name: string) {
-    return await this.pokemonsService.findOnePokemon(name);
-  }
 }

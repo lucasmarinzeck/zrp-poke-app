@@ -1,7 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
-import { Pokemon } from './entities/pokemon.entity';
 import { Abilities, Result } from './entities/abilities';
 import { Ability } from './entities/ability';
 
@@ -54,27 +53,7 @@ export class PokemonsService {
     };
   }
 
-  async findOnePokemon(name: string) {
-    const { data } = await lastValueFrom(
-      this.httpService.get<Pokemon>(`${this.url}/pokemon/${name}`),
-    );
-
-    return this.parsePokemonReponse(data);
-  }
-
   sortAlphabetically(a: string, b: string) {
     return a.localeCompare(b);
-  }
-
-  parsePokemonReponse(data: Pokemon) {
-    return {
-      id: data.id,
-      name: data.name,
-      abilities: data.abilities.sort((a, b) =>
-        this.sortAlphabetically(a.ability.name, b.ability.name),
-      ),
-      sprite: data.sprites.front_default,
-      types: data.types,
-    };
   }
 }
