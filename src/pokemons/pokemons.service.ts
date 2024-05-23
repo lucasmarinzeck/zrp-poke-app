@@ -23,11 +23,18 @@ export class PokemonsService {
       (entry) => entry.language.name === 'en',
     )[0];
 
+    const flavorText = data.flavor_text_entries.filter(
+      (entry) => entry.language.name === 'en',
+    )[0];
+
+    // Some cases the API does not have an desc for the ability
     return {
       id: data.id,
       name: data.name,
-      shortEffect: englishEntry.short_effect,
-      effect: englishEntry.effect,
+      shortEffect: englishEntry?.short_effect
+        ? englishEntry?.short_effect
+        : 'No description',
+      effect: englishEntry?.effect ? flavorText.flavor_text : 'No description',
     };
   }
 
