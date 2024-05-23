@@ -40,7 +40,7 @@ export class PokemonsController {
     return await this.pokemonsService.findAllAbilities(limit, offset);
   }
 
-  @Get('api/ability/:id')
+  @Get('/api/ability/:id')
   async getAbility(@Param('id') id: string) {
     return this.pokemonsService.findAbility(id);
   }
