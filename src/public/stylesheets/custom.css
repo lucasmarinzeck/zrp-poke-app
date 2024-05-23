@@ -1,0 +1,91 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+ol {
+    list-style: none;
+}
+
+
+li:nth-child(even) {
+    background-color: #B7B9D0;
+}
+
+li:nth-child(odd) {
+    background-color: #fff;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.list-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 5px;
+    font-size: 2.5rem;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.list-item a {
+    text-transform: capitalize;
+    color: black;
+    text-decoration: none;
+}
+
+.list-item a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.ability-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    font-family: "Arial";
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    background: #f1f1f3;
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 3%);
+    position: relative;
+}
+
+.ability-container .ability-name {
+    text-transform: capitalize;
+    text-decoration: underline;
+    display: flex;
+    padding: 0;
+    margin:  2rem 0;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.ability-effect {
+    padding: 0;
+    margin: 0;
+    padding: 0.4rem;
+    color: black;
+    font-size: 1.5rem;
+}

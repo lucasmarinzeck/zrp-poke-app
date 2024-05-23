@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/stylesheets/custom.css">
+    <title>Poke App</title>
+  </head>
+  <body>
+    <div class="container">
+        <ol class="list">
+            {{#abilities}}
+            <li class="list-item">
+                <a href="ability/{{id}}">
+                    {{name}}
+                </a>            
+            </li>
+            {{/abilities}}
+        </ol>
+  </div>
+  </body>
+</html>
